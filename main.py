@@ -19,7 +19,7 @@ if __name__ == '__main__':
     pygame.mixer.init()
 
     reloj = tiempo.Clock()
-    fps = 60
+    fps = 15
 
     ventana = pygame.display.set_mode((ancho, alto))
     pygame.display.set_caption("MiTetris")
@@ -57,9 +57,20 @@ if __name__ == '__main__':
     paso = pasoInicial
     tiempoUltimoPaso = 0
     restaPasosPorNivel = 10
-    puntosPorLinea = 100
 
+    #Variable que asignan la suma de puntos
+    puntosPorCaidaRapida = 1
+    puntosPorLinea = 100
+    puntosPorDobleLinea = 300
+    puntosPorTripleLinea = 500
+    puntosPorCuatrupleLinea = 800
+
+    #Variable que altera el movimiento de las piezas obteniendo la velicidad a través de la multiplicación de este con Var paso
     factorVelocidad = 0.25
+
+    #Variables para restringir la veloicidad de movimiento y giro
+    velMovMax = 100
+    velGiroMax = 110
 
     matriz = []
 
@@ -351,13 +362,13 @@ if __name__ == '__main__':
                 lineas += 1
 
         if len(filasLlenas) == 1:
-            puntos += 100
+            puntos += puntosPorLinea
         elif len(filasLlenas) == 2:
-            puntos += 300
+            puntos += puntosPorDobleLinea
         elif len(filasLlenas) == 3:
-            puntos += 500
+            puntos += puntosPorTripleLinea
         elif len(filasLlenas) == 4:
-            puntos += 800
+            puntos += puntosPorCuatrupleLinea
 
         if len(filasLlenas) > 0:
             sonidosFx['fila'].play(len(filasLlenas)-1)
@@ -381,7 +392,7 @@ if __name__ == '__main__':
         pieza = None
 
     def comprobarFin():
-        global fin
+        global fin, fps
 
         for j, fila in enumerate (matriz):
             if j > 3:
@@ -391,6 +402,7 @@ if __name__ == '__main__':
             for i, punto in enumerate(fila):
                 if punto == 1:
                     fin = True
+                    fps = 15
                     break
 
     def dibujarMarcadores():
@@ -404,6 +416,10 @@ if __name__ == '__main__':
         texto = str(f"Piezas: {piezas}")
         img = fuente.render(texto, True, (255, 255, 255))
         ventana.blit(img, (440, 350))
+
+        '''texto = str(f"Velocidad: {velocidad}")
+        img = fuente.render(texto, True, (255, 255, 255))
+        ventana.blit(img, (440, 300))'''
 
         texto = str(f"Líneas: {lineas}")
         img = fuente.render(texto, True, (255, 255, 255))
@@ -419,6 +435,7 @@ if __name__ == '__main__':
         img = fuente.render(texto, True, (255, 255, 255))
         centro = img.get_rect()[2]/2
         ventana.blit(img, (570 - centro, 600))
+
 
     def ordenarMarcadores():
 
@@ -437,8 +454,10 @@ if __name__ == '__main__':
     def escribirMarcadores():
 
         texto = ''
-        for marcador in marcadores:
+        for i, marcador in enumerate(marcadores):
             texto = texto + str(marcador['jugador']) + ' ' + str(marcador['punteo']) + '\n'
+            if i > 100:
+                break
 
         archivo = open('marcadores', 'w')
         archivo.write(texto)
@@ -489,7 +508,7 @@ if __name__ == '__main__':
                 continue
             else:
                 lugar = i
-                print(lugar)
+                #print(lugar)
                 break
 
     while True:
@@ -542,10 +561,12 @@ if __name__ == '__main__':
                     if pausa:
                         pausa = False
                         mixer.music.unpause()
+                        fps = 60
 
                     elif jugando:
                         pausa = True
                         mixer.music.pause()
+                        fps = 15
 
                     elif inicio:
                         jugando = True
@@ -553,12 +574,14 @@ if __name__ == '__main__':
                         inicio = False
                         inicializar()
                         mixer.music.stop()
+                        fps = 60
 
                     elif fin:
                         jugando = False
                         fin = False
                         grabarMarcadores = True
                         determinarPosicion()
+                        fps = 60
 
                     elif grabarMarcadores:
                         jugador = letras[indiceLetrasJugador[0]] + letras[indiceLetrasJugador[1]] + letras[indiceLetrasJugador[2]]
@@ -566,8 +589,12 @@ if __name__ == '__main__':
                         puntos = 0
                         ordenarMarcadores()
                         marcadores[0]['jugador'] = jugador
+                        indiceLetrasJugador[0] = letras.find(jugador[0])
+                        indiceLetrasJugador[1] = letras.find(jugador[1])
+                        indiceLetrasJugador[2] = letras.find(jugador[2])
                         grabarMarcadores = False
                         mostrarMarcadores = True
+                        fps = 15
 
                     elif mostrarMarcadores:
                         mostrarMarcadores = False
@@ -599,16 +626,28 @@ if __name__ == '__main__':
 
         if jugando and not pausa and pieza:
             if izquierda:
-                if microsegundos > ultimoIzqierda + velocidad:
-                    pieza.mover("izquierda", matriz)
-                    sonidosFx['mover'].play()
-                    ultimoIzqierda = microsegundos
+                if velocidad > velGiroMax:
+                    if microsegundos > ultimoIzqierda + velocidad:
+                        pieza.mover("izquierda", matriz)
+                        sonidosFx['mover'].play()
+                        ultimoIzqierda = microsegundos
+                else:
+                    if microsegundos > ultimoIzqierda + velMovMax:
+                        pieza.mover("izquierda", matriz)
+                        sonidosFx['mover'].play()
+                        ultimoIzqierda = microsegundos
 
             if derecha:
-                if microsegundos > ultimoDerecha + velocidad:
-                    pieza.mover("derecha", matriz)
-                    sonidosFx['mover'].play()
-                    ultimoDerecha = microsegundos
+                if velocidad > velGiroMax:
+                    if microsegundos > ultimoDerecha + velocidad:
+                        pieza.mover("derecha", matriz)
+                        sonidosFx['mover'].play()
+                        ultimoDerecha = microsegundos
+                else:
+                    if microsegundos > ultimoDerecha + velMovMax:
+                        pieza.mover("derecha", matriz)
+                        sonidosFx['mover'].play()
+                        ultimoDerecha = microsegundos
 
             if abajo:
                 if microsegundos > ultimoAbajo + velocidad:
@@ -616,13 +655,19 @@ if __name__ == '__main__':
                     sonidosFx['abajo'].play()
                     ultimoAbajo = microsegundos
                     tiempoUltimoPaso = microsegundos
-                    puntos += 1
+                    puntos += puntosPorCaidaRapida
 
             if rotando:
-                if microsegundos > ultimoRotando + velocidad * 1.5:
-                    pieza.rotar(matriz)
-                    sonidosFx['girar'].play()
-                    ultimoRotando = microsegundos
+                if velocidad > velGiroMax:
+                    if microsegundos > ultimoRotando + velocidad * 1.5:
+                        pieza.rotar(matriz)
+                        sonidosFx['girar'].play()
+                        ultimoRotando = microsegundos
+                else:
+                    if microsegundos > ultimoRotando + velGiroMax * 1.5:
+                        pieza.rotar(matriz)
+                        sonidosFx['girar'].play()
+                        ultimoRotando = microsegundos
 
         if grabarMarcadores:
             if izquierda:
