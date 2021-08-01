@@ -180,29 +180,29 @@ if __name__ == '__main__':
                         pygame.draw.rect(ventana, (255, 255, 255), (i * tamanoCajaInicio + 45,
                         j * tamanoCajaInicio + 250 - 4 * tamanoCajaInicio, tamanoCajaInicio - 2, tamanoCajaInicio - 2))
 
-            fuente = pygame.font.SysFont("SpaceClaim ASME CB", 30)
-            texto = 'Pulza las flachas para mover la pieza'
+            fuente = pygame.font.SysFont("OCR A Extended", 25)
+            texto = 'Pulsa las flachas para mover la pieza'
             img = fuente.render(texto, True, (255, 255, 255))
             centro = img.get_rect()[2]/2
             ventana.blit(img, (ancho/2 - centro, 400))
 
-            fuente = pygame.font.SysFont("SpaceClaim ASME CB", 32)
-            texto = 'Pulza ESPACIO para inicial y pausar tu juego'
+            fuente = pygame.font.SysFont("OCR A Extended", 25)
+            texto = 'Pulsa ESPACIO para iniciar y pausar tu juego'
             img = fuente.render(texto, True, (255, 255, 255))
             centro = img.get_rect()[2] / 2
             ventana.blit(img, (ancho / 2 - centro, 500))
 
-            fuente = pygame.font.SysFont("SpaceClaim ASME CB", 25)
-            texto = 'Pulza ESC para cerrar el juego'
+            fuente = pygame.font.SysFont("OCR A Extended", 25)
+            texto = 'Pulsa ESC para cerrar el juego'
             img = fuente.render(texto, True, (255, 255, 255))
-            ventana.blit(img, (25, 750))
+            ventana.blit(img, (25, 775))
 
         elif jugando:
             pygame.draw.rect(ventana, (255 ,255, 255), (7, 7, 406, 806), 1)
             pygame.draw.rect(ventana, (255, 255, 255), (446, 7, 89, 167), 1)
 
             if pausa:
-                fuente = pygame.font.SysFont("SpaceClaim ASME CB", 65)
+                fuente = pygame.font.SysFont("OCR A Extended", 65)
                 texto = 'PAUSA'
                 img = fuente.render(texto, True, (255, 255, 255))
                 ventana.blit(img, (110, 250))
@@ -213,58 +213,58 @@ if __name__ == '__main__':
             dibujarMatriz()
             dibujarMarcadores()
             pygame.draw.rect(ventana, (0, 0, 0), (30, 250, 365, 125), 0)
-            fuente = pygame.font.SysFont("SpaceClaim ASME CB", 50)
+            fuente = pygame.font.SysFont("OCR A Extended", 45)
             texto = 'FIN DEL JUEGO'
             img = fuente.render(texto, True, (255, 255, 255))
-            ventana.blit(img, (45, 250))
+            ventana.blit(img, (35, 285))
 
         elif grabarMarcadores:
 
             jugador = letras[indiceLetrasJugador[0]] + letras[indiceLetrasJugador[1]] + letras[indiceLetrasJugador[2]]
 
-            fuente = pygame.font.SysFont("SpaceClaim ASME CB", 100)
+            fuente = pygame.font.SysFont("OCR A Extended", 100)
 
             texto = jugador[0]
             img = fuente.render(texto, True, (255, 255, 255))
             centro = img.get_rect()[2] / 2
-            ventana.blit(img, (250 / 2 - centro, alto/2 - 75))
+            ventana.blit(img, (250 / 2 - centro, alto/2))
             texto = jugador[1]
             img = fuente.render(texto, True, (255, 255, 255))
             centro = img.get_rect()[2] / 2
-            ventana.blit(img, (400 / 2 - centro, alto / 2 - 75))
+            ventana.blit(img, (400 / 2 - centro, alto / 2))
             texto = jugador[2]
             img = fuente.render(texto, True, (255, 255, 255))
             centro = img.get_rect()[2] / 2
-            ventana.blit(img, (550 / 2 - centro, alto / 2 - 75))
+            ventana.blit(img, (550 / 2 - centro, alto / 2))
 
             texto = str(puntos)
             img = fuente.render(texto, True, (255, 255, 255))
             centro = img.get_rect()[2] / 2
-            ventana.blit(img, (1000 / 2 - centro, alto / 2 - 75))
+            ventana.blit(img, (1000 / 2 - centro, alto / 2))
 
             x1 = 100 + modificadorLetra * 75
             x2 = x1 + 25
             x3 = x2 + 25
-            y1 = alto/2 -25
+            y1 = alto/2 - 25
             y2 = y1 - 50
             pygame.draw.lines(ventana, (255, 255, 255), True, ((x1, y1), (x2, y2), (x3, y1)), 1)
             pygame.draw.lines(ventana, (255, 255, 255), True, ((x1, y1+150), (x2, y2+250), (x3, y1+150)), 1)
 
             if lugar <= 10:
-                fuente = pygame.font.SysFont("SpaceClaim ASME CB", 80)
+                fuente = pygame.font.SysFont("OCR A Extended", 80)
                 texto = '¡¡¡FELICIDADES!!!'
                 img = fuente.render(texto, True, (255, 255, 255))
                 centro = img.get_rect()[2] / 2
                 ventana.blit(img, (ancho / 2 - centro, 50))
 
-                fuente = pygame.font.SysFont("SpaceClaim ASME CB", 35)
+                fuente = pygame.font.SysFont("OCR A Extended", 27)
                 texto = 'estás dentro de los primeros 10 lugares'
                 img = fuente.render(texto, True, (255, 255, 255))
                 centro = img.get_rect()[2] / 2
                 ventana.blit(img, (ancho / 2 - centro, 200))
 
             else:
-                fuente = pygame.font.SysFont("SpaceClaim ASME CB", 50)
+                fuente = pygame.font.SysFont("OCR A Extended", 50)
                 texto = 'Lo hiciste muy bien'
                 img = fuente.render(texto, True, (255, 255, 255))
                 centro = img.get_rect()[2] / 2
@@ -275,30 +275,30 @@ if __name__ == '__main__':
                 centro = img.get_rect()[2] / 2
                 ventana.blit(img, (ancho / 2 - centro, 150))
 
-            fuente = pygame.font.SysFont("SpaceClaim ASME CB", 25)
+            fuente = pygame.font.SysFont("OCR A Extended", 25)
             texto = 'Pulsa ESPACIO para grabar tu record'
             img = fuente.render(texto, True, (255, 255, 255))
-            ventana.blit(img, (25, 750))
+            ventana.blit(img, (25, 775))
 
         elif mostrarMarcadores:
-            fuente = pygame.font.SysFont("SpaceClaim ASME CB", 35)
+            fuente = pygame.font.SysFont("OCR A Extended", 35)
             for i, marcador in enumerate(marcadores):
                 if i == 0:
                     continue
                 texto = str(i) + '.'
                 img = fuente.render(texto, True, (255, 255, 255))
                 centro = img.get_rect()[2] / 2
-                ventana.blit(img, (200 - centro, 90 + 50 * i))
+                ventana.blit(img, (200 - centro, 115 + 50 * i))
 
                 texto = str(marcador['jugador'])
                 img = fuente.render(texto, True, (255, 255, 255))
                 centro = img.get_rect()[2] / 2
-                ventana.blit(img, (325 - centro, 90 + 50 * i))
+                ventana.blit(img, (325 - centro, 115 + 50 * i))
 
                 texto = str(marcador['punteo'])
                 img = fuente.render(texto, True, (255, 255, 255))
                 centro = img.get_rect()[2] / 2
-                ventana.blit(img, (475 - centro, 90 + 50 * i))
+                ventana.blit(img, (475 - centro, 115 + 50 * i))
 
                 if i == 10:
                     break
@@ -307,32 +307,32 @@ if __name__ == '__main__':
                 texto = str(lugar) + '.'
                 img = fuente.render(texto, True, (255, 255, 255))
                 centro = img.get_rect()[2] / 2
-                ventana.blit(img, (200 - centro, 665))
+                ventana.blit(img, (200 - centro, 700))
 
                 texto = str(marcadores[lugar]['jugador'])
                 img = fuente.render(texto, True, (255, 255, 255))
                 centro = img.get_rect()[2] / 2
-                ventana.blit(img, (325 - centro, 665))
+                ventana.blit(img, (325 - centro, 700))
 
                 texto = str(marcadores[lugar]['punteo'])
                 img = fuente.render(texto, True, (255, 255, 255))
                 centro = img.get_rect()[2] / 2
-                ventana.blit(img, (475 - centro, 665))
+                ventana.blit(img, (475 - centro, 700))
 
-            fuente = pygame.font.SysFont("SpaceClaim ASME CB", 45)
+            fuente = pygame.font.SysFont("OCR A Extended", 43)
             texto = '¡LOS 10 MEJORES JUGADORES!'
             img = fuente.render(texto, True, (255, 255, 255))
             centro = img.get_rect()[2] / 2
-            ventana.blit(img, (ancho / 2 - centro, 25))
+            ventana.blit(img, (ancho / 2 - centro, 50))
 
-            fuente = pygame.font.SysFont("SpaceClaim ASME CB", 25)
+            fuente = pygame.font.SysFont("OCR A Extended", 25)
             texto = 'Pulsa ESPACIO para regresar a inicio'
             img = fuente.render(texto, True, (255, 255, 255))
-            ventana.blit(img, (25, 750))
+            ventana.blit(img, (25, 775))
 
             pygame.draw.rect(ventana, (255, 255, 255), (125, 145, 450, 530), 1)
 
-            if lugar <= 10 and len(marcadores) > 2:
+            if lugar <= 10 and len(marcadores) > 7:
                 pygame.draw.rect(ventana, (255, 255, 255), (125, 108 + 50 * lugar, 450, 50), 1)
 
     def dibujarMatriz():
@@ -409,12 +409,12 @@ if __name__ == '__main__':
 
     def dibujarMarcadores():
 
-        fuente = pygame.font.SysFont("SpaceClaim ASME CB", 40)
+        fuente = pygame.font.SysFont("OCR A Extended", 40)
         texto = str(f"Nivel: {nivel + 1}")
         img = fuente.render(texto, True, (255, 255, 255))
         ventana.blit(img, (440, 250))
 
-        fuente = pygame.font.SysFont("SpaceClaim ASME CB", 30)
+        fuente = pygame.font.SysFont("OCR A Extended", 30)
         texto = str(f"Piezas: {piezas}")
         img = fuente.render(texto, True, (255, 255, 255))
         ventana.blit(img, (440, 350))
@@ -427,12 +427,12 @@ if __name__ == '__main__':
         img = fuente.render(texto, True, (255, 255, 255))
         ventana.blit(img, (440, 400))
 
-        fuente = pygame.font.SysFont("SSpaceClaim ASME CB", 55)
+        fuente = pygame.font.SysFont("OCR A Extended", 55)
         texto = "PUNTEO"
         img = fuente.render(texto, True, (255, 255, 255))
         ventana.blit(img, (480, 550))
 
-        fuente = pygame.font.SysFont("SpaceClaim ASME CB", 60)
+        fuente = pygame.font.SysFont("OCR A Extended", 60)
         texto = str(puntos)
         img = fuente.render(texto, True, (255, 255, 255))
         centro = img.get_rect()[2]/2
@@ -555,7 +555,7 @@ if __name__ == '__main__':
                 if evento.key == pygame.K_LEFT:
                         izquierda = True
 
-                if evento.key == pygame.K_UP:
+                if evento.key == pygame.K_UP or evento.key == pygame.K_r:
                         rotando = True
 
                 if evento.key == pygame.K_SPACE:
@@ -618,7 +618,7 @@ if __name__ == '__main__':
                 if evento.key == pygame.K_RIGHT:
                     derecha = False
 
-                if evento.key == pygame.K_UP:
+                if evento.key == pygame.K_UP or evento.key == pygame.K_r:
                     rotando = False
 
 
