@@ -23,6 +23,8 @@ if __name__ == '__main__':
 
     ventana = pygame.display.set_mode((ancho, alto))
     pygame.display.set_caption("MiTetris")
+    icono = pygame.image.load('assets/icono.png')
+    pygame.display.set_icon(icono)
 
     #variables de juego
     tamanoCaja = 40
@@ -426,7 +428,7 @@ if __name__ == '__main__':
         ventana.blit(img, (440, 400))
 
         fuente = pygame.font.SysFont("SSpaceClaim ASME CB", 55)
-        texto = str("PUNTEO")
+        texto = "PUNTEO"
         img = fuente.render(texto, True, (255, 255, 255))
         ventana.blit(img, (480, 550))
 
@@ -624,7 +626,7 @@ if __name__ == '__main__':
             if evento.type == globales.QUIT:
                 salir()
 
-        if jugando and not pausa and pieza:
+        if jugando and not pausa and pieza and not pieza.posicionada:
             if izquierda:
                 if velocidad > velGiroMax:
                     if microsegundos > ultimoIzqierda + velocidad:

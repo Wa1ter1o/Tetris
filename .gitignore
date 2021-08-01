@@ -1,3 +1,5 @@
 /assets/sonidos/Efectos.wav
 /marcadores
 /.vscode/
+/dist/
+/build/
