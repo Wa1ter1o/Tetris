@@ -181,7 +181,7 @@ if __name__ == '__main__':
                         j * tamanoCajaInicio + 250 - 4 * tamanoCajaInicio, tamanoCajaInicio - 2, tamanoCajaInicio - 2))
 
             fuente = pygame.font.SysFont("OCR A Extended", 25)
-            texto = 'Pulsa las flachas para mover la pieza'
+            texto = 'Pulsa las flechas para mover la pieza'
             img = fuente.render(texto, True, (255, 255, 255))
             centro = img.get_rect()[2]/2
             ventana.blit(img, (ancho/2 - centro, 400))
